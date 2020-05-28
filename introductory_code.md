@@ -96,20 +96,30 @@ query_address_all <- dbSendQuery(sakila_db,
                                          FROM address")
 ```
 
-2.  Retrieve the data from that R object using the `fetch()` function
+2.  Retrieve the data from that R object using the `dbFetch()` function
     and assign it to a dataframe.
 
 <!-- end list -->
 
 ``` r
-data_query_address_all <- fetch(query_address_all, n = -1)
+data_query_address_all <- dbFetch(query_address_all, n = -1)
+```
+
+If you prefer to work with data that is stored as a `tibble` then you
+can convert the resulting `data.frame` using the following code:
+
+*Note: you may need to re-parse your variables into more appropriate
+data types if you convert to a tibble*
+
+``` r
+data_query_address_all_tb <- as_tibble(data_query_address_all)
 ```
 
 *Note: Our results are too wide to show in a coherent manner, so we can
 print out a sample of `20` street addresses instead.*
 
 ``` r
-pull(data_query_address_all,address)
+pull(data_query_address_all_tb,address)
 ```
 
     ##  [1] "47 MySakila Drive"                  "28 MySQL Boulevard"                
@@ -123,3 +133,13 @@ pull(data_query_address_all,address)
     ## [17] "270 Amroha Parkway"                 "770 Bydgoszcz Avenue"              
     ## [19] "419 Iligan Lane"                    "360 Toulouse Parkway"              
     ##  [ reached getOption("max.print") -- omitted 583 entries ]
+
+-----
+
+As with most things in life there are multiple ways of doing things. We
+can work with our data using two options:
+
+1.  We can write our queries in advance and use R to pull our results
+    into a data frame. (See process above)  
+2.  We can pull all the tables from our designated MySQL server into R
+    and manipulate/analyze them further.
