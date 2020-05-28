@@ -1,6 +1,16 @@
 Code for Using Data in MySQL
 ================
 
+  - [*Loading Required Packages*](#loading-required-packages)
+  - [*Connecting to the MySQL Schema
+    “Sakila”*](#connecting-to-the-mysql-schema-sakila)
+  - [*Looking Inside the Sakila
+    Schema*](#looking-inside-the-sakila-schema)
+  - [*Pulling Data Out from the Sakila
+    Schema*](#pulling-data-out-from-the-sakila-schema)
+  - [*Pulling All Tables into the R Global
+    Environment*](#pulling-all-tables-into-the-r-global-environment)
+
 ##### *Loading Required Packages*
 
 ``` r

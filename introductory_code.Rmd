@@ -1,6 +1,9 @@
 ---
 title: "Code for Using Data in MySQL"
-output: github_document
+output: 
+    github_document:
+        toc: TRUE
+        toc_depth: 5
 ---
 
 ##### _Loading Required Packages_  
@@ -95,10 +98,13 @@ Additionally, you can see how the tables are all related to one another in the i
 _([Click here for table-specific information](https://dev.mysql.com/doc/sakila/en/sakila-structure-tables.html))_  
 
 
+
+
+
+
+
 ```{r TEST CODE, echo = FALSE, results = FALSE}
 
 janitor::tabyl(data_query_address_all_tb, city_id)
 
 ```
-
-
