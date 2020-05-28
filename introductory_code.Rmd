@@ -76,11 +76,23 @@ pull(data_query_address_all_tb,address)
 
 ***  
 
+##### _Pulling All Tables into the R Global Environment_  
+
 As with most things in life there are multiple ways of doing things. We can work with our data using two options:  
 
 1. We can  write our queries in advance and use R to pull our results into a data frame. (See process above)  
 2. We can pull all the tables from our designated MySQL server into R and manipulate/analyze them further.  
 
+Remember that we have the following 23 tables stored in our `Sakila` schema:  
+
+```{r reprint list of sakila tables}
+dbListTables(sakila_db)
+```
+
+Additionally, you can see how the tables are all related to one another in the image below. Knowing the relationships between tables is critical to successfully querying the results that you need; some information we will need, and some we will not.  
+
+![table_relationships](https://dev.mysql.com/doc/sakila/en/images/sakila-schema.png)  
+_([Click here for table-specific information](https://dev.mysql.com/doc/sakila/en/sakila-structure-tables.html))_  
 
 
 ```{r TEST CODE, echo = FALSE, results = FALSE}
