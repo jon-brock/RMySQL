@@ -10,7 +10,7 @@ library(tidyverse)
 library(keyring)
 ```
 
-The `keyring` package is needed in order to maintain the security and privacy of our login information. This is crucial because we do not want to share login information when we distribute our code to others. We generate a key for our password and use it by calling it with the `key_get()` function in the `keyring` package. Coding this key is done directly in the console and not included in the final code.  
+The `keyring` [package](https://www.r-bloggers.com/how-to-hide-a-password-in-r-with-the-keyring-package/) is needed in order to maintain the security and privacy of our login information. This is crucial because we do not want to share login information when we distribute our code to others. We generate a key for our password and use it by calling it with the `key_get()` function in the `keyring` package. Coding this key is done [directly in the console](https://www.infoworld.com/article/3320999/r-tip-keep-your-passwords-and-tokens-secure-with-the-keyring-package.html) and not included in the final code.  
 
 ***  
 
@@ -24,4 +24,45 @@ sakila_db = dbConnect(MySQL(),
 ```
 
 The `Sakila` schema is a sample database that contains information on movie rental customers, as well as information on the movies themselves. You can find both the SQL schema documentation and zip file for download [here](https://dev.mysql.com/doc/sakila/en/) and [here](https://downloads.mysql.com/docs/sakila-db.zip), respectively.
+
+***  
+
+##### _Looking Inside the Sakila Schema_  
+```{r list tables}
+ #List all of the tables
+dbListTables(sakila_db)
+```
+
+We can see from our results that the schema contains 23 distinct tables. Some of these tables are strictly related to the cusomter, whereas the rest of the tables are related to the films.  
+
+We can assess what variables (or columns) are within a specific table using the following code:  
+```{r list variables within the address table}
+dbListFields(sakila_db, "address")
+```
+
+The `address` table contains nine variables, as seen above. Now that we know how to connect to our MySQL database and see what tables and variables lie within it it's time to start exploring.  
+
+***  
+
+##### _Pulling Data Out from the Sakila Schema_  
+Let's start with something basic. I want to see all of the data contained within the `address` table.  
+
+_Querying the data is a two-part process:_  
+
+1. Assign a query to a designated R object.
+```{r assign address query to object, warning = FALSE}
+query_address_all <- dbSendQuery(sakila_db, 
+                                        "SELECT *
+                                         FROM address")
+```
+
+2. Retrieve the data from that R object using the `fetch()` function and assign it to a dataframe.
+```{r retrieve query data results, warning = FALSE}
+data_query_address_all <- fetch(query_address_all, n = -1)
+```
+
+_Note: Our results are too wide to show in a coherent manner, so we can print out a sample of `20` street addresses instead._  
+```{r printing out a sample of addresses, R.options = list(max.print = 20)}
+pull(data_query_address_all,address)
+```
 
